@@ -1,22 +1,20 @@
 Exercise 8 : Shared Variable Synchronization
 --------------------------------------------
 
-In this two-part exercise, we will solve the same synchronization problem in four different ways, using:
+In this exercise, we will solve the same synchronization problem in five different ways, using:
 
  - Semaphores
  - Condition Variables
  - Protected Objects
- - Channels
+ - Message passing (2 ways)
 
 The goal is not just to get better at solving problems with these primitives, but also to gain a deeper understanding of their relationships (in what ways the solutions with different primitives are similar or different) and their applicability (which ones are best suited for what purpose).
 
 The first goal of this exercise is to get some hands-on experience with solving problems with each of these mechanisms. We often talk about these as the "C / Java / Ada / Go way of doing things", and there are different ways of thinking enabled (or required) by each of these. Translating a single problem between all of these will more clearly highlight the similarities and differences between them.
 
-There is not always a specific link between the programming language and the synchronization mechanism. The only one of these that is bound to a language is Protected Objects with Ada (and to some extent also Channels and Go). But remember that all of these solutions run on the same operating system, on the same hardware, with the same instruction set. The only thing a language or mechanism can provide is *sugar*, making some things *easier* at the cost of making other things harder (or sometimes impossible). Understanding this tradeoff is the second goal of this exercise.
+There is not always a specific link between the programming language and the synchronization mechanism. The only one of these that is bound to a language is Protected Objects with Ada (and to some extent also Channels with Go). But remember that all of these solutions run on the same operating system, on the same hardware, with the same instruction set. The only thing a language or mechanism can provide is *sugar*, making some things *easier* at the cost of making other things harder (or sometimes impossible). Understanding this tradeoff is the second goal of this exercise.
 
 For this exercise we will in fact not use C or Java, but instead use D for both semaphores and condition variables. It's one less language so support, unlike C it is portable across operating systems, and unlike Java you already know how to use it (assuming you know C and a tiny bit of C++).
-
-In the first part (this exercise), we will introduce the problem itself, a buggy solution to it using semaphores, and then you will solve it with semaphores, condition variables, and protected objects. In the second part (next exercise) you will solve it two different ways with message passing, then reflect on the strengths and weaknesses of all the different solutions.
 
 ### The problem
 
@@ -57,7 +55,7 @@ void deallocate(){
 }
 ```
 
-To briefly narrativize this (buggy) solution: When allocating, the resource is either in use (`busy`) or not. If it is in use, we wait at the appropriate priority (`PS`), and the job of handing over the resource falls to whoever deallocates it. When deallocating, we first check for high priority waiters, then low priority, then finally do nothing if there are neither. The operations manipulating the priority queues are protected with an outer mutex (`M`).
+To briefly narrativize this (buggy) solution: When allocating, the resource is either in use (`busy`) or not. If it is in use, we wait at the appropriate priority semaphore (`PS`), and the job of handing over the resource falls to whoever deallocates it. When deallocating, we first check for high priority waiters, then low priority, then finally do nothing if there are neither. The operations manipulating the priority queues are protected with an outer mutex (`M`).
 
 Before continuing - try to find the bug yourself.
 
@@ -88,7 +86,7 @@ In order to check if that your various solutions are correct, each starter code 
    *Test: Multiple high priority users show up over time.*
    Expected: Low-priority users (6 & 7) wait until all high-priority users are done.
    
-The output consists of two parts: First, a (sideways) Gantt chart that shows which tasks are doing nothing (blank), waiting for the resource (light shade), executing with the resource (dark shade), or have just finished (filled upper-half square). Second, it displays the order the tasks used the resource. Example output:
+The output consists of two parts: First, a (sideways) Gantt chart that shows which tasks are doing nothing (blank), waiting for the resource (light shade), executing with the resource (dark shade), or have just finished (filled upper-half square). Second, it displays the order in which the tasks used the resource. Example output:
 
 ```
   id:  0  1  2  3  4  5  6  7  8  9
@@ -139,7 +137,10 @@ Execution order: [0, 1, 2, 0, 2, 4, 8, 6, 7, 3, 5, 1, 0, 1, 2, 3, 4, 5, 7, 6]
 All tests pass
 ```
 
-You should only have to modify the resource class/object/thread in the starter code.
+You should only have to modify the resource class/object/thread in the starter codes, the resource users and logging mechanisms are already completed.
+
+*Do note that the execution logging mechanisms are entirely thread-unsafe, and setting the tick rate too fast can make them output strange things. But the final execution order will always be determined correctly - as long as you implement the allocate and deallocate functionality correctly...*
+
 
  
 The part where you do the thing
@@ -197,7 +198,7 @@ Note that the guards on entries cannot use the parameters in their conditions. T
  - You will find starter code in [the `protectedobject` folder](/protectedobject).
  - You will need [an Ada compiler](https://www.adacore.com/download). Compile the code with `gnatmake protectobj.adb`.
  - Alternatively, try an online compiler. In order of most to least promising:  
-   [OneCompiler](https://onecompiler.com/ada/3wtdvb2xp) (pre-loaded)  
+   [OneCompiler](https://onecompiler.com/ada/3wtpw5fr4) (pre-loaded)  
    [CodingGround](https://www.tutorialspoint.com/compile_ada_online.php)  
    [JDoodle](https://www.jdoodle.com/execute-ada-online/)
    
