@@ -13,7 +13,13 @@ procedure protectobj is
     use IntVec;
     package Integer_IO is new Ada.Text_IO.Integer_IO (Integer);
 
-
+    -- --- RESOURCE OBJECT --- --
+    -- You will finish implementing allocateLow, allocateHigh, and deallocate.
+    -- Note: There are no checks that the final execution order is correct. You will have to check this yourself.
+    -- Hints:
+    --  - Use `entryName'Count` to get the number of tasks waiting on an entry. This can be used in the guard of another entry.
+    --  - Equality checks are done with `=`, instead of `==`. Assignment is always done with `:=`.
+    -----------------------
     protected type Resource is
         entry allocateHigh(val: out IntVec.Vector);
         entry allocateLow(val: out IntVec.Vector);
