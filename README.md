@@ -78,12 +78,12 @@ In order to check if that your various solutions are correct, each starter code 
  - **Releasing single users:**  
    *Test: Users take the resource, and give it back before anyone else shows up.*  
    Expected: Users execute in the order they are released, and use the resource immediately.
- - **Releasing multiple users:**
+ - **Releasing multiple users:**  
    *Test: Multiple users of different priorities show up at the same time.*  
    Expected 1: High priority users (even id number) execute before low priority users.  
    Expected 2: No users execute with the resource at the same time.  
  - **Releasing high-priority users while low-priority users are waiting:**  
-   *Test: Multiple high priority users show up over time.*
+   *Test: Multiple high priority users show up over time.*  
    Expected: Low-priority users (6 & 7) wait until all high-priority users are done.
    
 The output consists of two parts: First, a (sideways) Gantt chart that shows which tasks are doing nothing (blank), waiting for the resource (light shade), executing with the resource (dark shade), or have just finished (filled upper-half square). Second, it displays the order in which the tasks used the resource. Example output:
