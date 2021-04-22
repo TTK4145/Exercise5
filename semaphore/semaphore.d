@@ -32,7 +32,7 @@ class Resource(T) {
         }
     }
     
-    T allocate(int id, int priority){
+    T allocate(int priority){
         return value;
     }
     
@@ -90,7 +90,7 @@ void main(){
     Thread.sleep(tick*2);
     
     
-    auto val = resource.allocate(-1, 0);
+    auto val = resource.allocate(0);
     
     assert(val.length == cfgs.length,
         "Test failed: Did not run all users once");
@@ -131,7 +131,7 @@ void resourceUser(ResourceUserConfig cfg, shared Resource!(int[]) r){
     Thread.sleep(cfg.release * tick);
     
     executionStates[cfg.id] = ExecutionState.waiting;
-    auto val = resource.allocate(cfg.id, cfg.priority);
+    auto val = resource.allocate(cfg.priority);
     
     executionStates[cfg.id] = ExecutionState.executing;
     
