@@ -63,6 +63,9 @@ struct PriorityQueue(T) {
         struct Elem {
             T   val;
             int priority;
+            string toString(){
+                return format!("%s:%s")(priority, val);
+            }
         }
         Elem[] queue;
     }
@@ -86,6 +89,10 @@ struct PriorityQueue(T) {
     
     bool empty(){
         return queue.empty;
+    }
+    
+    string toString(){
+        return format!("%s([%(%s, %)])")(typeof(this).stringof, queue);
     }
 }
 
