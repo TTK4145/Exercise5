@@ -139,7 +139,7 @@ All tests pass
 
 You should only have to modify the resource class/object/thread in the starter codes, the resource users and logging mechanisms are already completed.
 
-*Do note that the execution logging mechanisms are entirely thread-unsafe, and setting the tick rate too fast can make them output strange things. But the final execution order will always be determined correctly - as long as you implement the allocate and deallocate functionality correctly...*
+*Do note that the execution logging and the task release- and execution-times are triggered by sleeps, tied to the tick rate. Setting the tick rate too fast can make the logger output strange things, scramble the order tasks are released in, and make the tasks execute so fast that they don't get to block for each other.*
 
 
  
