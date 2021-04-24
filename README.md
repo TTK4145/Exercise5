@@ -86,7 +86,7 @@ In order to check if that your various solutions are correct, each starter code 
    *Test: Multiple high priority users show up over time.*  
    Expected: Low-priority users (6 & 7) wait until all high-priority users are done.
    
-The output consists of two parts: First, a (sideways) Gantt chart that shows which tasks are doing nothing (blank), waiting for the resource (light shade), executing with the resource (dark shade), or have just finished (filled upper-half square). Second, it displays the order in which the tasks used the resource. Example output:
+The output consists of two parts: First, a (sideways) Gantt chart that shows which tasks are doing nothing (blank), waiting for the resource (light shade), executing with the resource (dark shade), or have just finished (filled upper-half square). Second, it displays the order in which the tasks used the resource. The internal data structure of the resource is an array of integers, and each resource user appends its own identifier to this list. Example output:
 
 ```
   id:  0  1  2  3  4  5  6  7  8  9
