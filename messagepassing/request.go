@@ -5,7 +5,7 @@ import "time"
 import "sort"
 
 
-const tick = time.Millisecond * 16
+const tick = time.Millisecond * 33
 
 
 // --- RESOURCE ROUTINE --- //

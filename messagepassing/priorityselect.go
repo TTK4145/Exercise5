@@ -4,7 +4,7 @@ import "fmt"
 import "time"
 
 
-const tick = time.Millisecond * 16
+const tick = time.Millisecond * 33
 
 
 // --- RESOURCE ROUTINE --- //

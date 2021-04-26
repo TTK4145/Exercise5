@@ -2,7 +2,7 @@
 import std.algorithm, std.concurrency, std.format, std.range, std.stdio, std.traits;
 import core.thread, core.sync.semaphore, core.sync.mutex, core.sync.condition;
 
-immutable Duration tick = 16.msecs;
+immutable Duration tick = 33.msecs;
 
 // --- RESOURCE CLASS --- //
 /* 

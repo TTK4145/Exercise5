@@ -6,7 +6,7 @@ with Ada.Containers.Vectors;
 
 procedure protectobj is
 
-    tick : Float := 0.016;
+    tick : Float := 0.033;
     package IntVec is new Ada.Containers.Vectors
         (Index_Type  => Natural,
         Element_Type => Integer);
