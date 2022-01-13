@@ -73,7 +73,7 @@ A proper (non-buggy) solution would have to fix either **1.** or **2.** (or both
 
 ### The test
 
-In order to check if that your various solutions are correct, each starter code comes with a set of tasks that allocate and deallocate the resource in a specific order, and a logging mechanism to show the execution state of the tasks. The test consists of three sequences:
+In order to check that your various solutions are correct, each starter code comes with a set of tasks that allocate and deallocate the resource in a specific order, and a logging mechanism to show the execution state of the tasks. The test consists of three sequences:
 
  - **Releasing single users:**  
    *Test: Users take the resource, and give it back before anyone else shows up.*  
@@ -86,7 +86,7 @@ In order to check if that your various solutions are correct, each starter code 
    *Test: Multiple high priority users show up over time.*  
    Expected: Low-priority users (6 & 7) wait until all high-priority users are done.
    
-The output consists of two parts: First, a (sideways) Gantt chart that shows which tasks are doing nothing (blank), waiting for the resource (light shade), executing with the resource (dark shade), or have just finished (filled upper-half square). Second, it displays the order in which the tasks used the resource. The internal data structure of the resource is an array of integers, and each resource user appends its own identifier to this list. Example output:
+The output consists of two parts: First, a (vertical) Gantt chart that shows which tasks are doing nothing (blank), waiting for the resource (light shade), executing with the resource (dark shade), or have just finished (filled upper-half square). Second, it displays the order in which the tasks used the resource. The internal data structure of the resource is an array of integers, and each resource user appends its own identifier to this list. Example output:
 
 ```
   id:  0  1  2  3  4  5  6  7  8  9
@@ -212,7 +212,7 @@ With message passing, the resource has to be sent to and from *something*, which
  - Try to take the resource directly from a channel, where the resource manager uses `select`'s ability for send-cases to conditionally refuse to send.  
    *This method requires channels, select, and both receive- and send-cases.*
 
-The "request" solution is in principle very similar to the one with condition variables. The resource manager takes all the requests it has received and sorts them in a priority queue, handing out the resource whenever it is available and there is someone who wants it. The big difference is that instead of calling `allocate` as a function we send a resource-request-message on a channel, and instead of getting the resource as a return value we get it sent on a channel.
+The "request" solution is in principle very similar to the one with condition variables. The resource manager takes all the requests it has received, sorts them in a priority queue, then hands out the resource whenever it is available (and there is someone who wants it). The big difference is that instead of calling `allocate` as a function we send a resource-request-message on a channel, and instead of getting the resource as a return value we get it sent on a channel.
 
 The "send case" solution is... different. Since we need multiple priority levels, we can't use just one channel, as there would be no way for the resource manager to know what priority we are. With multiple channels we will have to use select:
 
