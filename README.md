@@ -188,6 +188,19 @@ In our case, a priority queue makes the most sense: `allocate` adds ourself to t
 
  - You will find starter code in [the `conditionvariable` folder](/conditionvariable).
  - Here's [the pre-loaded online version](https://run.dlang.io/gist/klasbo/093ec0bbb236bf4ac9d88b5f289b70e2?compiler=dmd)
+ 
+---
+
+Why is it called a "condition variable"? This appears to be mostly an artifact of history - C. A. R. Hoare proposed the mechanism in 1974, and in his paper [*Monitors: An Operating System Structuring Concept*](https://www.inf.ed.ac.uk/teaching/courses/ppls/hoare.pdf) he writes:
+
+*Note that a condition "variable" is neither true nor false; indeed, it does not have any stored value accessible to the program. In practice, a condition variable will be represented by an (initially empty) queue of processes which are currently waiting on the condition; but this queue is invisible both to waiters and signallers.*
+
+Which means that the "condition" part is just "whatever the reason for waiting is" (which is entirely user-defined), and the "variable" part is the data structure for the hidden/back-end/internal queuing mechanism. The user-facing reference to this variable (like the `core.sync.Condition` type) never got a better name. 
+
+Just to make this clear: Any variables the user checks when evaluating the condition are just *regular variables*, and should not be confused with the Condition Variable itself - despite being both variables, and part of a condition...
+
+As for the relation to monitors: A monitor is the mutex plus condition variable combo package, where the locking (and subsequent unlocking) of the mutex is done automatically when entering (and exiting) the synchronized method call. In this way, the "standard pattern" mentioned above is enforced automatically.
+
 
 ### Part 3: Protected Objects
 
