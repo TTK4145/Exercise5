@@ -1,5 +1,5 @@
-Exercise 8: A Synchronization Problem
-=====================================
+Exercise 5 : A Synchronization Problem
+======================================
 
 In this exercise, we will solve the same synchronization problem in five different ways, using:
 
