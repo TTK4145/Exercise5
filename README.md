@@ -77,14 +77,14 @@ In order to check that your various solutions are correct, each starter code com
 
  - **Releasing single users:**  
    *Test: Users take the resource, and give it back before anyone else shows up.*  
-   Expected: Users execute in the order they are released, and use the resource immediately.
+   Expected: Users execute in the order they are released (id 0, 1, then 2), and use the resource immediately.
  - **Releasing multiple users:**  
    *Test: Multiple users of different priorities show up at the same time.*  
-   Expected 1: High priority users (even id number) execute before low priority users.  
+   Expected 1: High priority users (even id number) execute before low priority users (odd id).  
    Expected 2: No users execute with the resource at the same time.  
  - **Releasing high-priority users while low-priority users are waiting:**  
    *Test: Multiple high priority users show up over time.*  
-   Expected: Low-priority users (6 & 7) wait until all high-priority users are done.
+   Expected: Low-priority users (6 & 7) wait until all high-priority users (1 through 5) are done.
    
 The output consists of two parts: First, a (vertical) Gantt chart that shows which tasks are doing nothing (blank), waiting for the resource (light shade), executing with the resource (dark shade), or have just finished (filled upper-half square). Second, it displays the order in which the tasks used the resource. The internal data structure of the resource is an array of integers, and each resource user appends its own identifier to this list. Example output:
 
@@ -209,6 +209,7 @@ In Ada's tasking model, a *protected object* is an object that disallows simulta
 Note that the guards on entries cannot use the parameters in their conditions. This means we have to have separate entries for each priority, since having just a single entry `allocate(priority: Integer; value: out Resource)` would not be able to distinguish between high and low priority.
 
  - You will find starter code in [the `protectedobject` folder](/protectedobject).
+   - Note that this code does *not* have any built-in tests for the execution order! You will have to check this manually.
  - You will need [an Ada compiler](https://www.adacore.com/download). Compile the code with `gnatmake protectobj.adb`.
  - Alternatively, try an online compiler. In order of most to least promising:  
    [OneCompiler](https://onecompiler.com/ada/3wtpw5fr4) (pre-loaded)  
