@@ -27,6 +27,7 @@ Hints:
  - You should not need a `busy` boolean (or any other variables for that matter).  
    But you might find it useful when experimenting...
  - `select` can have a `default` case. 
+ - You will need to completely restructure the existing code, not just extend it
 */
 
 type Resource struct {
