@@ -188,7 +188,7 @@ In our case, a priority queue makes the most sense: `allocate` adds ourselves to
 
 ---
 
-Why is it called a "condition variable"? This appears to be mostly an artifact of history. C. A. R. Hoare proposed the mechanism in 1974, and in his paper [*Monitors: An Operating System Structuring Concept*](https://www.inf.ed.ac.uk/teaching/courses/ppls/hoare.pdf), he writes:
+Why is it called a "condition variable"? This appears to be mostly an artifact of history. C. A. R. Hoare proposed the mechanism in 1974, and in his paper [*Monitors: An Operating System Structuring Concept*](https://dl.acm.org/doi/pdf/10.1145/355620.361161), he writes: 
 
 *Note that a condition "variable" is neither true nor false; indeed, it does not have any stored value accessible to the program. In practice, a condition variable will be represented by an (initially empty) queue of processes which are currently waiting on the condition; but this queue is invisible both to waiters and signallers.*
 
